@@ -1,4 +1,4 @@
-import WelcomeMessage from './components/WelcomeMessage';
+import WelcomeMessage from './components/WelcomeMessage';  
 
 function App() {
   return (
@@ -6,4 +6,6 @@ function App() {
       <WelcomeMessage />
     </div>
   );
-} 
+}
+
+export default App; 
