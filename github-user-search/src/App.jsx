@@ -1,4 +1,4 @@
-import Search from './components/search.jsx';
+import Search from './components/Search.js';
 import './App.css';
 
 function App() {
