@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { fetchUserData, searchUsers } from '../services/githubService';
 
-const Search = () => {
+function Search() {
   const [searchType, setSearchType] = useState('basic');
   const [basicUsername, setBasicUsername] = useState('');
   const [advancedQuery, setAdvancedQuery] = useState('');
@@ -58,7 +58,6 @@ const Search = () => {
   return React.createElement('div', { 
     className: 'max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md' 
   }, [
-    // Search Type Toggle
     React.createElement('div', { 
       key: 'toggle',
       className: 'flex border-b border-gray-200 mb-6' 
@@ -83,7 +82,6 @@ const Search = () => {
       }, 'Advanced Search')
     ]),
 
-    // Basic Search Form
     searchType === 'basic' && React.createElement('form', {
       key: 'basic-form',
       onSubmit: handleBasicSearch,
@@ -107,7 +105,6 @@ const Search = () => {
       ])
     ),
 
-    // Advanced Search Form
     searchType === 'advanced' && React.createElement('form', {
       key: 'advanced-form',
       onSubmit: handleAdvancedSearch,
@@ -168,19 +165,16 @@ const Search = () => {
       }, 'Advanced Search')
     ]),
 
-    // Loading State
     loading && React.createElement('p', {
       key: 'loading',
       className: 'text-center text-gray-600'
     }, 'Loading...'),
 
-    // Error State
     error && React.createElement('div', {
       key: 'error',
       className: 'text-center text-red-500 bg-red-50 p-4 rounded-md'
     }, error),
 
-    // Basic Search Results
     userData && React.createElement('div', {
       key: 'basic-results',
       className: 'border-t pt-4'
@@ -231,7 +225,6 @@ const Search = () => {
       ])
     ]),
 
-    // Advanced Search Results
     searchResults.length > 0 && React.createElement('div', {
       key: 'advanced-results',
       className: 'border-t pt-4'
@@ -274,6 +267,6 @@ const Search = () => {
       ))
     ])
   ]);
-};
+}
 
 export default Search;

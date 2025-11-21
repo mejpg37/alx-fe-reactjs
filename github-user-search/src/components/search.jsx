@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { fetchUserData, searchUsers } from '../services/githubService';
 
-const Search = () => {
+function Search() {
   const [searchType, setSearchType] = useState('basic');
   const [basicUsername, setBasicUsername] = useState('');
   const [advancedQuery, setAdvancedQuery] = useState('');
@@ -57,7 +57,6 @@ const Search = () => {
 
   return (
     <div className="max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
-      {/* Search Type Toggle */}
       <div className="flex border-b border-gray-200 mb-6">
         <button
           onClick={() => setSearchType('basic')}
@@ -81,7 +80,6 @@ const Search = () => {
         </button>
       </div>
 
-      {/* Basic Search Form */}
       {searchType === 'basic' && (
         <form onSubmit={handleBasicSearch} className="mb-6">
           <div className="flex gap-2">
@@ -103,7 +101,6 @@ const Search = () => {
         </form>
       )}
 
-      {/* Advanced Search Form */}
       {searchType === 'advanced' && (
         <form onSubmit={handleAdvancedSearch} className="mb-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
@@ -154,7 +151,6 @@ const Search = () => {
         </form>
       )}
 
-      {/* Loading and Error States */}
       {loading && <p className="text-center text-gray-600">Loading...</p>}
       
       {error && (
@@ -163,7 +159,6 @@ const Search = () => {
         </div>
       )}
 
-      {/* Basic Search Results */}
       {userData && (
         <div className="border-t pt-4">
           <h3 className="text-lg font-semibold mb-4">User Found:</h3>
@@ -177,10 +172,10 @@ const Search = () => {
               <h2 className="text-xl font-bold">{userData.name || userData.login}</h2>
               <p className="text-gray-600">{userData.bio}</p>
               <div className="mt-2 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                <span>Ì≥ç {userData.location || 'Not specified'}</span>
-                <span>Ì±• Followers: {userData.followers}</span>
-                <span>Ì¥ù Following: {userData.following}</span>
-                <span>Ì≥¶ Repos: {userData.public_repos}</span>
+                <span>üìç {userData.location || 'Not specified'}</span>
+                <span>üë• Followers: {userData.followers}</span>
+                <span>ü§ù Following: {userData.following}</span>
+                <span>üì¶ Repos: {userData.public_repos}</span>
               </div>
               <a
                 href={userData.html_url}
@@ -195,7 +190,6 @@ const Search = () => {
         </div>
       )}
 
-      {/* Advanced Search Results */}
       {searchResults.length > 0 && (
         <div className="border-t pt-4">
           <h3 className="text-lg font-semibold mb-4">
@@ -227,6 +221,6 @@ const Search = () => {
       )}
     </div>
   );
-};
+}
 
 export default Search;
