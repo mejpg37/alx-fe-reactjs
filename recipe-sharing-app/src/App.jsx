@@ -7,7 +7,7 @@ function App() {
     <div className="App" style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
       <h1 style={{ textAlign: 'center', color: '#333' }}>Recipe Sharing Application</h1>
       <AddRecipeForm />
-      <Recipelist />
+      <RecipeList />
     </div>
   )
 }
