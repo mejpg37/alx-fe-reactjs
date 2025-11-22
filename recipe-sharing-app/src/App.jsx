@@ -1,5 +1,5 @@
 import AddRecipeForm from './components/AddRecipeForm'
-import RecipeList from './components/RecipeList'
+import Recipelist from './components/Recipelist'
 import './App.css'
 
 function App() {
@@ -7,9 +7,9 @@ function App() {
     <div className="App" style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
       <h1 style={{ textAlign: 'center', color: '#333' }}>Recipe Sharing Application</h1>
       <AddRecipeForm />
-      <RecipeList />
+      <Recipelist />
     </div>
   )
 }
 
-export default App; 
+export default App
