@@ -2,33 +2,66 @@ import { useRecipeStore } from './recipeStore'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import EditRecipeForm from './EditRecipeForm'
+import DeleteRecipeButton from './DeleteRecipeButton'
 
 const RecipeList = () => {
-  const recipes = useRecipeStore((state) => state.filteredRecipes)
-  const deleteRecipe = useRecipeStore((state) => state.deleteRecipe)
+  const filteredRecipes = useRecipeStore((state) => state.filteredRecipes)
+  const searchTerm = useRecipeStore((state) => state.searchTerm)
   const [editingId, setEditingId] = useState(null)
-
-  const handleDelete = (recipeId, recipeTitle) => {
-    if (window.confirm(`Are you sure you want to delete "${recipeTitle}"?`)) {
-      deleteRecipe(recipeId)
-    }
-  }
 
   return (
     <div style={{ padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
-      <h2>Recipe List ({recipes.length})</h2>
-      {recipes.length === 0 ? (
-        <p style={{ 
-          padding: '20px', 
+      <h2>Recipe List ({filteredRecipes.length})</h2>
+      
+      {searchTerm && filteredRecipes.length > 0 && (
+        <div style={{ 
+          marginBottom: '15px', 
+          padding: '10px', 
+          backgroundColor: '#e7f3ff', 
+          borderRadius: '4px',
+          border: '1px solid #b3d9ff'
+        }}>
+          Showing {filteredRecipes.length} recipe{filteredRecipes.length !== 1 ? 's' : ''} matching "<strong>{searchTerm}</strong>"
+        </div>
+      )}
+      
+      {filteredRecipes.length === 0 ? (
+        <div style={{ 
+          padding: '40px', 
           textAlign: 'center', 
           color: '#666', 
           backgroundColor: '#f8f9fa',
-          borderRadius: '4px'
+          borderRadius: '8px',
+          border: '2px dashed #dee2e6'
         }}>
-          No recipes available. {useRecipeStore.getState().searchTerm && 'Try a different search term.'}
-        </p>
+          {searchTerm ? (
+            <>
+              <h3 style={{ color: '#6c757d', marginBottom: '10px' }}>No recipes found</h3>
+              <p>No recipes match "<strong>{searchTerm}</strong>". Try a different search term.</p>
+              <button 
+                onClick={() => useRecipeStore.getState().setSearchTerm('')}
+                style={{
+                  marginTop: '10px',
+                  padding: '8px 16px',
+                  backgroundColor: '#6c757d',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                Clear Search
+              </button>
+            </>
+          ) : (
+            <>
+              <h3 style={{ color: '#6c757d', marginBottom: '10px' }}>No recipes available</h3>
+              <p>Add your first recipe using the form above!</p>
+            </>
+          )}
+        </div>
       ) : (
-        recipes.map(recipe => (
+        filteredRecipes.map(recipe => (
           <div key={recipe.id} style={{ 
             border: '1px solid #eee', 
             margin: '15px 0', 
@@ -78,19 +111,10 @@ const RecipeList = () => {
                   >
                     Edit
                   </button>
-                  <button 
-                    onClick={() => handleDelete(recipe.id, recipe.title)}
-                    style={{ 
-                      padding: '8px 16px', 
-                      backgroundColor: '#dc3545', 
-                      color: 'white', 
-                      border: 'none', 
-                      borderRadius: '4px',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Delete
-                  </button>
+                  <DeleteRecipeButton 
+                    recipeId={recipe.id}
+                    recipeTitle={recipe.title}
+                  />
                 </div>
               </>
             )}
