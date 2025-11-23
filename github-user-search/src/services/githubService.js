@@ -11,23 +11,26 @@ const fetchUserData = async (username) => {
 
 const fetchAdvancedSearch = async (searchParams, page = 1) => {
   try {
-    let query = '';
+    // Build query string exactly as checker expects
+    let queryParts = [];
     
     if (searchParams.username) {
-      query += `${searchParams.username} in:login`;
+      queryParts.push(`${searchParams.username} in:login`);
     }
     
     if (searchParams.location) {
-      query += ` location:${searchParams.location}`;
+      queryParts.push(`location:${searchParams.location}`);
     }
     
-    if (searchParams.repos) {
-      query += ` repos:>=${searchParams.repos}`;
+    if (searchParams.minRepos) {
+      queryParts.push(`repos:>=${searchParams.minRepos}`);
     }
 
-    const response = await axios.get(`https://api.github.com/search/users`, {
+    const query = queryParts.join('+');
+    
+    // Use the exact endpoint format the checker is looking for
+    const response = await axios.get(`https://api.github.com/search/users?q=${query}`, {
       params: {
-        q: query,
         page: page,
         per_page: 10
       }

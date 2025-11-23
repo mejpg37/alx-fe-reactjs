@@ -7,7 +7,7 @@ const Search = () => {
   const [advancedParams, setAdvancedParams] = useState({
     username: '',
     location: '',
-    repos: ''
+    minRepos: '' // Changed from 'repos' to 'minRepos'
   });
   const [userData, setUserData] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
@@ -39,7 +39,7 @@ const Search = () => {
   // Advanced Search Handler
   const handleAdvancedSearch = async (e, page = 1) => {
     e.preventDefault();
-    if (!advancedParams.username && !advancedParams.location && !advancedParams.repos) return;
+    if (!advancedParams.username && !advancedParams.location && !advancedParams.minRepos) return;
 
     setLoading(true);
     setError(null);
@@ -150,8 +150,8 @@ const Search = () => {
               </label>
               <input
                 type="number"
-                value={advancedParams.repos}
-                onChange={(e) => handleAdvancedParamChange('repos', e.target.value)}
+                value={advancedParams.minRepos}
+                onChange={(e) => handleAdvancedParamChange('minRepos', e.target.value)}
                 placeholder="Minimum repos"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
