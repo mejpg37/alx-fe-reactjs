@@ -1,14 +1,14 @@
+import { useNavigate } from 'react-router-dom'
 import { useRecipeStore } from './recipeStore'
 
-const DeleteRecipButton = ({ recipeId, recipeTitle, onDelete }) => {
+const DeleteRecipeButton = ({ recipeId, recipeTitle }) => {
+  const navigate = useNavigate()
   const deleteRecipe = useRecipeStore((state) => state.deleteRecipe)
 
   const handleDelete = () => {
     if (window.confirm(`Are you sure you want to delete "${recipeTitle}"?`)) {
       deleteRecipe(recipeId)
-      if (onDelete) {
-        onDelete()
-      }
+      navigate('/')
     }
   }
 
@@ -24,11 +24,10 @@ const DeleteRecipButton = ({ recipeId, recipeTitle, onDelete }) => {
         cursor: 'pointer',
         fontSize: '14px'
       }}
-      title={`Delete ${recipeTitle}`}
     >
       Delete Recipe
     </button>
   )
 }
 
-export default DeleteRecipButton;
+export default DeleteRecipeButton;
