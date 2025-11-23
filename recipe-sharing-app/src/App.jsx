@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import AddRecipeForm from './components/AddRecipeForm'
 import RecipeList from './components/RecipeList'
 import RecipeDetails from './components/RecipeDetails'
-import SearchBar from './components/SearchBar'
 import './App.css'
 
 function App() {
@@ -38,7 +37,6 @@ function App() {
           <Route path="/" element={
             <main style={{ maxWidth: '800px', margin: '0 auto' }}>
               <AddRecipeForm />
-              <SearchBar />
               <RecipeList />
             </main>
           } />
