@@ -48,6 +48,7 @@ const Search = () => {
           <img 
             src={userData.avatar_url} 
             alt={`${userData.login}'s avatar`} 
+            width="100"
           />
           <div>
             <h2>{userData.name || userData.login}</h2>
@@ -65,4 +66,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default Search; 
