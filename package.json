@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/mejpg37/alx-fe-reactjs/issues"
   },
-  "homepage": "https://github.com/mejpg37/alx-fe-reactjs#readme"
+  "homepage": "https://github.com/mejpg37/alx-fe-reactjs#readme",
+  "dependencies": {
+    "formik": "^2.4.9",
+    "yup": "^1.7.1"
+  }
 }
