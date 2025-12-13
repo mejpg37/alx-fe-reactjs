@@ -2,11 +2,14 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import PostsComponent from './components/PostsComponent';
 
+// Create a client with default options
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: true,
+      refetchOnWindowFocus: true,  // This can also be set globally here
       retry: 1,
+      staleTime: 5000,
+      cacheTime: 10000,
     },
   },
 });
