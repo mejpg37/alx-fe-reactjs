@@ -15,18 +15,19 @@ const PostsComponent = () => {
   const { 
     data: posts, 
     isLoading, 
+    isError,  // ← Add this line
     error, 
     refetch,
     isFetching 
   } = useQuery({
     queryKey: ['posts', refetchCount],
     queryFn: fetchPosts,
-    staleTime: 5000, // Consider data fresh for 5 seconds
-    cacheTime: 10000, // Keep unused data in cache for 10 seconds
+    staleTime: 5000,
+    cacheTime: 10000,
   });
 
   if (isLoading) return <div>Loading posts...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (isError) return <div>Error: {error.message}</div>;  // ← Change this line
 
   return (
     <div style={{ padding: '20px' }}>
@@ -90,7 +91,7 @@ const PostsComponent = () => {
           <li><strong>Caching:</strong> Data is cached for 10 seconds (check Network tab in DevTools)</li>
           <li><strong>Automatic Refetch:</strong> Window focus triggers refetch by default</li>
           <li><strong>Loading States:</strong> Separate states for initial load and refetching</li>
-          <li><strong>Error Handling:</strong> Built-in error state management</li>
+          <li><strong>Error Handling:</strong> Built-in error state management using <code>isError</code></li>
           <li><strong>Stale Time:</strong> Data considered fresh for 5 seconds</li>
         </ul>
         <p>
