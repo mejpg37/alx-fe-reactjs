@@ -9,7 +9,7 @@ import Posts from './components/Posts';
 import PostDetail from './components/PostDetail';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './components/Login';
-import './App.css';  // Add this line
+import './App.css';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -29,7 +29,6 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-        {/* Navigation Header */}
         <header className="app-header">
           <div className="container header-content">
             <div className="logo-section">
@@ -69,7 +68,6 @@ function App() {
           </div>
         </header>
 
-        {/* Main Content */}
         <main className="app-main">
           <div className="container">
             <Routes>
@@ -82,36 +80,17 @@ function App() {
               <Route path="/posts" element={<Posts />} />
               <Route path="/posts/:slug" element={<PostDetail />} />
               
-              <Route path="/profile" element={
+              <Route path="/profile/*" element={
                 <ProtectedRoute isAuthenticated={isAuthenticated}>
                   <Profile />
                 </ProtectedRoute>
-              }>
-                <Route index element={
-                  <div className="profile-overview">
-                    <h2>Profile Overview</h2>
-                    <p>Welcome to your profile dashboard! This is the default view for the profile route.</p>
-                    <div className="info-box">
-                      <h3>Nested Routing Demonstration</h3>
-                      <p>This content is rendered as the index route of the Profile component.</p>
-                      <p>Use the sidebar to navigate to:</p>
-                      <ul>
-                        <li><strong>Profile Details</strong> - View and manage your personal information</li>
-                        <li><strong>Account Settings</strong> - Configure your account preferences</li>
-                      </ul>
-                    </div>
-                  </div>
-                } />
-                <Route path="details" element={<ProfileDetails />} />
-                <Route path="settings" element={<ProfileSettings />} />
-              </Route>
+              } />
               
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </div>
         </main>
 
-        {/* Footer */}
         <footer className="app-footer">
           <div className="container">
             <p>Advanced Routing Demo - React Router v6</p>

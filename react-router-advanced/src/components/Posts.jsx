@@ -1,149 +1,176 @@
-import { Link } from 'react-router-dom';
+import { Routes, Route, NavLink, useLocation } from 'react-router-dom';
+import ProfileDetails from './ProfileDetails';
+import ProfileSettings from './ProfileSettings';
 
-const posts = [
-  { 
-    id: 1, 
-    title: 'Getting Started with React Router', 
-    slug: 'getting-started-react-router',
-    excerpt: 'Learn how to set up and configure React Router in your applications.',
-    author: 'Jane Smith',
-    date: '2024-01-15'
-  },
-  { 
-    id: 2, 
-    title: 'Advanced State Management in React', 
-    slug: 'advanced-state-management',
-    excerpt: 'Explore various state management solutions for large React applications.',
-    author: 'John Doe',
-    date: '2024-01-20'
-  },
-  { 
-    id: 3, 
-    title: 'Building Scalable React Applications', 
-    slug: 'building-scalable-react-apps',
-    excerpt: 'Best practices and patterns for building scalable React applications.',
-    author: 'Bob Johnson',
-    date: '2024-01-25'
-  },
-  { 
-    id: 4, 
-    title: 'React Performance Optimization Tips', 
-    slug: 'react-performance-tips',
-    excerpt: 'Techniques to optimize performance in React applications.',
-    author: 'Alice Williams',
-    date: '2024-01-30'
-  },
-  { 
-    id: 5, 
-    title: 'TypeScript with React: A Complete Guide', 
-    slug: 'typescript-react-guide',
-    excerpt: 'How to effectively use TypeScript in React projects.',
-    author: 'Charlie Brown',
-    date: '2024-02-05'
-  },
-  { 
-    id: 6, 
-    title: 'Testing React Applications with Jest', 
-    slug: 'testing-react-jest',
-    excerpt: 'Comprehensive guide to testing React components with Jest.',
-    author: 'Diana Prince',
-    date: '2024-02-10'
-  }
-];
+const Profile = () => {
+  const location = useLocation();
 
-const Posts = () => {
   return (
-    <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
-      <h1>Blog Posts</h1>
-      <p style={{ color: '#666', marginBottom: '30px' }}>
-        Click on any post to see dynamic routing in action. Each post has a unique URL slug.
-      </p>
-      
+    <div style={{ 
+      maxWidth: '1200px', 
+      margin: '0 auto',
+      minHeight: '500px'
+    }}>
       <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
-        gap: '25px',
-        marginTop: '20px'
+        display: 'flex', 
+        border: '1px solid #ddd',
+        borderRadius: '8px',
+        overflow: 'hidden'
       }}>
-        {posts.map(post => (
-          <Link 
-            key={post.id}
-            to={`/posts/${post.slug}`}
-            style={{
-              border: '1px solid #ddd',
-              borderRadius: '8px',
-              padding: '20px',
-              textDecoration: 'none',
-              color: 'inherit',
-              display: 'block',
-              transition: 'transform 0.3s, box-shadow 0.3s',
-              backgroundColor: 'white'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = 'translateY(-5px)';
-              e.target.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = 'translateY(0)';
-              e.target.style.boxShadow = 'none';
-            }}
-          >
+        {/* Sidebar */}
+        <div style={{ 
+          width: '250px', 
+          backgroundColor: '#f8f9fa',
+          padding: '20px',
+          borderRight: '1px solid #ddd'
+        }}>
+          <div style={{ marginBottom: '30px' }}>
+            <h3>User Profile</h3>
             <div style={{ 
               display: 'flex', 
-              justifyContent: 'space-between',
-              marginBottom: '10px',
-              fontSize: '0.9em',
-              color: '#666'
+              alignItems: 'center',
+              marginTop: '15px'
             }}>
-              <span>By {post.author}</span>
-              <span>{post.date}</span>
+              <div style={{
+                width: '50px',
+                height: '50px',
+                borderRadius: '50%',
+                backgroundColor: '#007bff',
+                color: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginRight: '10px'
+              }}>
+                JD
+              </div>
+              <div>
+                <strong>John Doe</strong>
+                <p style={{ margin: 0, color: '#666' }}>Administrator</p>
+              </div>
             </div>
-            
-            <h3 style={{ 
-              margin: '10px 0',
-              color: '#007bff'
-            }}>
-              {post.title}
-            </h3>
-            
-            <p style={{ 
-              margin: '15px 0',
-              color: '#555',
-              lineHeight: '1.6'
-            }}>
-              {post.excerpt}
-            </p>
-            
-            <div style={{ 
-              marginTop: '15px',
-              color: '#007bff',
-              fontWeight: 'bold',
-              display: 'flex',
-              alignItems: 'center'
-            }}>
-              Read more →
-            </div>
-          </Link>
-        ))}
+          </div>
+          
+          <nav>
+            <h4>Navigation</h4>
+            <ul style={{ listStyle: 'none', padding: 0 }}>
+              <li style={{ marginBottom: '5px' }}>
+                <NavLink 
+                  to="/profile" 
+                  end
+                  style={({ isActive }) => ({
+                    display: 'block',
+                    padding: '10px 15px',
+                    textDecoration: 'none',
+                    color: isActive ? '#007bff' : '#333',
+                    backgroundColor: isActive ? '#e7f1ff' : 'transparent',
+                    borderRadius: '4px',
+                    borderLeft: isActive ? '4px solid #007bff' : '4px solid transparent',
+                    transition: 'all 0.3s'
+                  })}
+                >
+                  Overview
+                </NavLink>
+              </li>
+              <li style={{ marginBottom: '5px' }}>
+                <NavLink 
+                  to="/profile/details"
+                  style={({ isActive }) => ({
+                    display: 'block',
+                    padding: '10px 15px',
+                    textDecoration: 'none',
+                    color: isActive ? '#007bff' : '#333',
+                    backgroundColor: isActive ? '#e7f1ff' : 'transparent',
+                    borderRadius: '4px',
+                    borderLeft: isActive ? '4px solid #007bff' : '4px solid transparent',
+                    transition: 'all 0.3s'
+                  })}
+                >
+                  Profile Details
+                </NavLink>
+              </li>
+              <li style={{ marginBottom: '5px' }}>
+                <NavLink 
+                  to="/profile/settings"
+                  style={({ isActive }) => ({
+                    display: 'block',
+                    padding: '10px 15px',
+                    textDecoration: 'none',
+                    color: isActive ? '#007bff' : '#333',
+                    backgroundColor: isActive ? '#e7f1ff' : 'transparent',
+                    borderRadius: '4px',
+                    borderLeft: isActive ? '4px solid #007bff' : '4px solid transparent',
+                    transition: 'all 0.3s'
+                  })}
+                >
+                  Account Settings
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        
+        {/* Main Content Area */}
+        <div style={{ 
+          flex: 1, 
+          padding: '30px',
+          backgroundColor: 'white'
+        }}>
+          <Routes>
+            <Route path="/" element={
+              <div>
+                <h2>Profile Overview</h2>
+                <p>Welcome to your profile dashboard! This is the default view for the profile route.</p>
+                <div style={{ 
+                  marginTop: '20px',
+                  padding: '20px',
+                  backgroundColor: '#f0f8ff',
+                  borderRadius: '8px'
+                }}>
+                  <h3>Nested Routing Demonstration</h3>
+                  <p>This content is rendered as the index route of the Profile component.</p>
+                  <p>Use the sidebar to navigate to:</p>
+                  <ul>
+                    <li><strong>Profile Details</strong> - View and manage your personal information</li>
+                    <li><strong>Account Settings</strong> - Configure your account preferences</li>
+                  </ul>
+                  <div style={{ 
+                    marginTop: '15px',
+                    padding: '10px',
+                    backgroundColor: '#e7f3ff',
+                    borderRadius: '4px',
+                    fontSize: '14px'
+                  }}>
+                    <p><strong>Current URL:</strong> {location.pathname}</p>
+                    <p><strong>Routes Component:</strong> Using React Router's Routes and Route components</p>
+                  </div>
+                </div>
+              </div>
+            } />
+            <Route path="details" element={<ProfileDetails />} />
+            <Route path="settings" element={<ProfileSettings />} />
+          </Routes>
+        </div>
       </div>
       
       <div style={{ 
-        marginTop: '40px',
+        marginTop: '30px',
         padding: '20px',
         backgroundColor: '#f8f9fa',
         borderRadius: '8px'
       }}>
-        <h3>Dynamic Routing Demonstration</h3>
-        <p>Each post link above uses dynamic routing:</p>
+        <h4>Nested Routes Implementation Details:</h4>
+        <p>This Profile component demonstrates nested routing using:</p>
         <ul>
-          <li>URL pattern: <code>/posts/:slug</code></li>
-          <li>The <code>:slug</code> parameter changes for each post</li>
-          <li>The PostDetail component extracts this parameter using <code>useParams()</code></li>
-          <li>Try copying a post URL and pasting it in a new tab - it should work!</li>
+          <li><code>&lt;Routes&gt;</code> component to define route boundaries</li>
+          <li><code>&lt;Route&gt;</code> components for each nested route</li>
+          <li><code>ProfileDetails</code> component for the /details route</li>
+          <li><code>ProfileSettings</code> component for the /settings route</li>
+          <li>Relative paths for nested routes</li>
         </ul>
       </div>
     </div>
   );
 };
 
-export default Posts;
+export default Profile;
