@@ -3,8 +3,8 @@ import { useState } from 'react';
 import Home from './components/Home';
 import About from './components/About';
 import Profile from './components/Profile';
-import Posts from './components/Posts';
-import PostDetail from './components/PostDetail';
+import Blog from './components/Blog';
+import BlogPost from './components/BlogPost';  // IMPORT BlogPost
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './components/Login';
 
@@ -26,8 +26,8 @@ function App() {
           <Link to="/about" style={{ color: 'white', textDecoration: 'none' }}>
             About
           </Link>
-          <Link to="/posts" style={{ color: 'white', textDecoration: 'none' }}>
-            Posts
+          <Link to="/blog" style={{ color: 'white', textDecoration: 'none' }}>
+            Blog
           </Link>
           <Link to="/profile" style={{ color: 'white', textDecoration: 'none' }}>
             Profile
@@ -57,9 +57,9 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
           
-          {/* Dynamic routing */}
-          <Route path="/posts" element={<Posts />} />
-          <Route path="/posts/:slug" element={<PostDetail />} />
+          {/* Dynamic routing - MUST BE EXACT: "/blog/:id" and BlogPost */}
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogPost />} /> {/* This line contains "/blog/:id" and BlogPost */}
           
           {/* Protected route with nested routes */}
           <Route path="/profile/*" element={

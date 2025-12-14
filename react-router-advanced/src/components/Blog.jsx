@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 
-const posts = [
-  { id: 1, title: 'Getting Started with React Router', slug: 'getting-started' },
-  { id: 2, title: 'Advanced State Management', slug: 'advanced-state' },
-  { id: 3, title: 'Building Scalable Apps', slug: 'scalable-apps' },
-];
+const Blog = () => {
+  const posts = [
+    { id: 1, title: 'Getting Started with React Router' },
+    { id: 2, title: 'Advanced State Management' },
+    { id: 3, title: 'Building Scalable Apps' },
+  ];
 
-const Posts = () => {
   return (
     <div style={{ padding: '20px' }}>
       <h1>Blog Posts</h1>
@@ -19,7 +19,7 @@ const Posts = () => {
         {posts.map(post => (
           <Link 
             key={post.id}
-            to={`/posts/${post.slug}`}
+            to={`/blog/${post.id}`}
             style={{
               border: '1px solid #ddd',
               borderRadius: '8px',
@@ -37,4 +37,4 @@ const Posts = () => {
   );
 };
 
-export default Posts;
+export default Blog; 
