@@ -1,15 +1,15 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { useState } from 'react';
+import useAuth from './hooks/useAuth';
 import Home from './components/Home';
 import About from './components/About';
 import Profile from './components/Profile';
 import Blog from './components/Blog';
-import BlogPost from './components/BlogPost';  // IMPORT BlogPost
+import BlogPost from './components/BlogPost';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './components/Login';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, logout } = useAuth();
 
   return (
     <Router>
@@ -38,7 +38,7 @@ function App() {
             </Link>
           ) : (
             <button 
-              onClick={() => setIsAuthenticated(false)}
+              onClick={logout}
               style={{
                 padding: '5px 15px',
                 backgroundColor: '#dc3545',
@@ -55,15 +55,15 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/login" element={<Login />} />
           
-          {/* Dynamic routing - MUST BE EXACT: "/blog/:id" and BlogPost */}
+          {/* Dynamic routing */}
           <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:id" element={<BlogPost />} /> {/* This line contains "/blog/:id" and BlogPost */}
+          <Route path="/blog/:id" element={<BlogPost />} />
           
-          {/* Protected route with nested routes */}
+          {/* Protected route */}
           <Route path="/profile/*" element={
-            <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
           } />
