@@ -1,119 +1,72 @@
-import { Outlet, NavLink } from 'react-router-dom';
+import { Routes, Route, NavLink, Outlet } from 'react-router-dom';
+import ProfileDetails from './ProfileDetails';
+import ProfileSettings from './ProfileSettings';
 
 const Profile = () => {
   return (
-    <div style={{ 
-      maxWidth: '1200px', 
-      margin: '0 auto',
-      minHeight: '500px'
-    }}>
+    <div style={{ display: 'flex', minHeight: '400px' }}>
       <div style={{ 
-        display: 'flex', 
-        border: '1px solid #ddd',
-        borderRadius: '8px',
-        overflow: 'hidden'
+        width: '200px', 
+        backgroundColor: '#f4f4f4',
+        padding: '20px',
+        borderRight: '1px solid #ddd'
       }}>
-        {/* Sidebar */}
-        <div style={{ 
-          width: '250px', 
-          backgroundColor: '#f8f9fa',
-          padding: '20px',
-          borderRight: '1px solid #ddd'
-        }}>
-          <div style={{ marginBottom: '30px' }}>
-            <h3>User Profile</h3>
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'center',
-              marginTop: '15px'
-            }}>
-              <div style={{
-                width: '50px',
-                height: '50px',
-                borderRadius: '50%',
-                backgroundColor: '#007bff',
-                color: 'white',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginRight: '10px'
-              }}>
-                JD
-              </div>
-              <div>
-                <strong>John Doe</strong>
-                <p style={{ margin: 0, color: '#666' }}>Administrator</p>
-              </div>
+        <h3>Profile Navigation</h3>
+        <nav style={{ display: 'flex', flexDirection: 'column' }}>
+          <NavLink 
+            to="/profile" 
+            end
+            style={({ isActive }) => ({
+              padding: '10px',
+              textDecoration: 'none',
+              color: isActive ? '#007bff' : '#333',
+              backgroundColor: isActive ? '#e7f1ff' : 'transparent',
+              borderRadius: '4px',
+              marginBottom: '5px'
+            })}
+          >
+            Overview
+          </NavLink>
+          <NavLink 
+            to="/profile/details"
+            style={({ isActive }) => ({
+              padding: '10px',
+              textDecoration: 'none',
+              color: isActive ? '#007bff' : '#333',
+              backgroundColor: isActive ? '#e7f1ff' : 'transparent',
+              borderRadius: '4px',
+              marginBottom: '5px'
+            })}
+          >
+            Details
+          </NavLink>
+          <NavLink 
+            to="/profile/settings"
+            style={({ isActive }) => ({
+              padding: '10px',
+              textDecoration: 'none',
+              color: isActive ? '#007bff' : '#333',
+              backgroundColor: isActive ? '#e7f1ff' : 'transparent',
+              borderRadius: '4px',
+              marginBottom: '5px'
+            })}
+          >
+            Settings
+          </NavLink>
+        </nav>
+      </div>
+      <div style={{ flex: 1, padding: '20px' }}>
+        <Routes>
+          <Route path="details" element={<ProfileDetails />} />
+          <Route path="settings" element={<ProfileSettings />} />
+          <Route index element={
+            <div>
+              <h2>Profile Overview</h2>
+              <p>Welcome to your profile dashboard!</p>
             </div>
-          </div>
-          
-          <nav>
-            <h4>Navigation</h4>
-            <ul style={{ listStyle: 'none', padding: 0 }}>
-              <li style={{ marginBottom: '5px' }}>
-                <NavLink 
-                  to="/profile" 
-                  end
-                  style={({ isActive }) => ({
-                    display: 'block',
-                    padding: '10px 15px',
-                    textDecoration: 'none',
-                    color: isActive ? '#007bff' : '#333',
-                    backgroundColor: isActive ? '#e7f1ff' : 'transparent',
-                    borderRadius: '4px',
-                    borderLeft: isActive ? '4px solid #007bff' : '4px solid transparent',
-                    transition: 'all 0.3s'
-                  })}
-                >
-                  Overview
-                </NavLink>
-              </li>
-              <li style={{ marginBottom: '5px' }}>
-                <NavLink 
-                  to="/profile/details"
-                  style={({ isActive }) => ({
-                    display: 'block',
-                    padding: '10px 15px',
-                    textDecoration: 'none',
-                    color: isActive ? '#007bff' : '#333',
-                    backgroundColor: isActive ? '#e7f1ff' : 'transparent',
-                    borderRadius: '4px',
-                    borderLeft: isActive ? '4px solid #007bff' : '4px solid transparent',
-                    transition: 'all 0.3s'
-                  })}
-                >
-                  Profile Details
-                </NavLink>
-              </li>
-              <li style={{ marginBottom: '5px' }}>
-                <NavLink 
-                  to="/profile/settings"
-                  style={({ isActive }) => ({
-                    display: 'block',
-                    padding: '10px 15px',
-                    textDecoration: 'none',
-                    color: isActive ? '#007bff' : '#333',
-                    backgroundColor: isActive ? '#e7f1ff' : 'transparent',
-                    borderRadius: '4px',
-                    borderLeft: isActive ? '4px solid #007bff' : '4px solid transparent',
-                    transition: 'all 0.3s'
-                  })}
-                >
-                  Account Settings
-                </NavLink>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        
-        {/* Main Content Area */}
-        <div style={{ 
-          flex: 1, 
-          padding: '30px',
-          backgroundColor: 'white'
-        }}>
-          <Outlet />
-        </div>
+          } />
+        </Routes>
+        <Outlet />
       </div>
     </div>
   );

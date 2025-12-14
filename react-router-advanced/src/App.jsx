@@ -1,104 +1,73 @@
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { useState } from 'react';
 import Home from './components/Home';
 import About from './components/About';
 import Profile from './components/Profile';
-import ProfileDetails from './components/ProfileDetails';
-import ProfileSettings from './components/ProfileSettings';
 import Posts from './components/Posts';
 import PostDetail from './components/PostDetail';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './components/Login';
-import './App.css';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => {
-    const storedAuth = localStorage.getItem('isAuthenticated');
-    if (storedAuth === 'true') {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    localStorage.removeItem('isAuthenticated');
-  };
-
   return (
     <Router>
-      <div className="app-container">
-        <header className="app-header">
-          <div className="container header-content">
-            <div className="logo-section">
-              <h1 className="logo">RouterDemo</h1>
-              <nav className="main-nav">
-                <ul className="nav-list">
-                  <li className="nav-item">
-                    <Link to="/" className="nav-link">Home</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/about" className="nav-link">About</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/posts" className="nav-link">Posts</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/profile" className="nav-link">Profile</Link>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-            
-            <div className="auth-section">
-              {isAuthenticated ? (
-                <button 
-                  onClick={handleLogout}
-                  className="logout-btn"
-                >
-                  Logout
-                </button>
-              ) : (
-                <Link to="/login" className="login-btn">
-                  Login
-                </Link>
-              )}
-            </div>
-          </div>
-        </header>
+      <div>
+        <nav style={{
+          backgroundColor: '#333',
+          padding: '10px 20px',
+          display: 'flex',
+          gap: '20px'
+        }}>
+          <Link to="/" style={{ color: 'white', textDecoration: 'none' }}>
+            Home
+          </Link>
+          <Link to="/about" style={{ color: 'white', textDecoration: 'none' }}>
+            About
+          </Link>
+          <Link to="/posts" style={{ color: 'white', textDecoration: 'none' }}>
+            Posts
+          </Link>
+          <Link to="/profile" style={{ color: 'white', textDecoration: 'none' }}>
+            Profile
+          </Link>
+          {!isAuthenticated ? (
+            <Link to="/login" style={{ color: 'white', textDecoration: 'none' }}>
+              Login
+            </Link>
+          ) : (
+            <button 
+              onClick={() => setIsAuthenticated(false)}
+              style={{
+                padding: '5px 15px',
+                backgroundColor: '#dc3545',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px'
+              }}
+            >
+              Logout
+            </button>
+          )}
+        </nav>
 
-        <main className="app-main">
-          <div className="container">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/login" element={
-                <Login setIsAuthenticated={setIsAuthenticated} />
-              } />
-              
-              <Route path="/posts" element={<Posts />} />
-              <Route path="/posts/:slug" element={<PostDetail />} />
-              
-              <Route path="/profile/*" element={
-                <ProtectedRoute isAuthenticated={isAuthenticated}>
-                  <Profile />
-                </ProtectedRoute>
-              } />
-              
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </div>
-        </main>
-
-        <footer className="app-footer">
-          <div className="container">
-            <p>Advanced Routing Demo - React Router v6</p>
-            <p className="footer-subtitle">
-              Demonstrating: Nested Routes • Dynamic Routing • Protected Routes
-            </p>
-          </div>
-        </footer>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+          
+          {/* Dynamic routing */}
+          <Route path="/posts" element={<Posts />} />
+          <Route path="/posts/:slug" element={<PostDetail />} />
+          
+          {/* Protected route with nested routes */}
+          <Route path="/profile/*" element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Profile />
+            </ProtectedRoute>
+          } />
+        </Routes>
       </div>
     </Router>
   );
